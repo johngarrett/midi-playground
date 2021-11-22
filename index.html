@@ -1,0 +1,73 @@
+<style>
+#midi-data {
+  position:relative; overflow:scroll;
+  height: 300px;
+  background:transparentize(white,0.1);
+    border:10px solid transparentize($purple,0.3);
+  ul {
+    position:absolute; left:0px; bottom:0px;
+    padding:1em;
+    li {
+      padding:0.2em 0.2em 0.2em 1em;
+      font-size:1.6em;
+      font-family: monospace;
+        color:$purple;
+        animation:flash 0.5s;
+        &:before {content:"> "; margin-left:-1em;}
+      }
+    }
+  }
+}
+</style>
+<div>
+  <h2>Simple MIDI API Example</h2>
+
+  <p>Plug in your MIDI controller and see the data logged here</p>
+
+  <section id="midi-data">  
+    <ul></ul>
+  </section>
+</div><div>
+  <h2>Simple MIDI API Example</h2>
+
+  <p>Plug in your MIDI controller and see the data logged here</p>
+
+  <section id="midi-data">  
+    <ul></ul>
+  </section>
+          <script>
+              var midi, data;
+                // start talking to MIDI controller
+                if (navigator.requestMIDIAccess) {
+                  navigator.requestMIDIAccess({
+                    sysex: false
+                  }).then(onMIDISuccess, onMIDIFailure);
+                } else {
+                  console.warn("No MIDI support in your browser")
+                }
+
+                // on success
+                function onMIDISuccess(midiData) {
+                  // this is all our MIDI data
+                  midi = midiData;
+                  var allInputs = midi.inputs.values();
+                  // loop over all available inputs and listen for any MIDI input
+                  for (var input = allInputs.next(); input && !input.done; input = allInputs.next()) {
+                    // when a MIDI value is received call the onMIDIMessage function
+                    input.value.onmidimessage = gotMIDImessage;
+                  }
+        }
+                var dataList = document.querySelector('#midi-data ul')
+
+                function gotMIDImessage(messageData) {
+                var newItem = document.createElement('li');
+                newItem.appendChild(document.createTextNode(messageData.data));
+                dataList.appendChild(newItem);
+                }
+
+                // on failure
+                function onMIDIFailure() {
+                console.warn("Not recognising MIDI controller")
+                }
+                  </script>
+</div>
