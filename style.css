@@ -1,0 +1,19 @@
+#midi-data {
+  position:relative; overflow:scroll;
+  height: 300px;
+  background:transparentize(white,0.1);
+    border:10px solid transparentize($purple,0.3);
+  ul {
+    position:absolute; left:0px; bottom:0px;
+    padding:1em;
+    li {
+      padding:0.2em 0.2em 0.2em 1em;
+      font-size:1.6em;
+      font-family: monospace;
+        color:$purple;
+        animation:flash 0.5s;
+        &:before {content:"> "; margin-left:-1em;}
+      }
+    }
+  }
+}
