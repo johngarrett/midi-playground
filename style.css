@@ -13,6 +13,11 @@ tt {
 
 #header {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#header-lhs {
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     row-gap: 10px;
@@ -26,6 +31,10 @@ tt {
     border-style: solid;
     height: 4em;
     width: 2em;
+    transition: all 0.5s ease-out;
+}
+.selected {
+    background-color: red;
 }
 
 #midi-data {

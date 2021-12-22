@@ -6,22 +6,23 @@
 </head>
 <body>
     <div id="header">
-        <h1>MIDI Playground</h1>
-        <tt id="connection-status">No device currently connection</tt>
+        <div id="header-lhs">
+            <h1>MIDI Playground</h1>
+            <p id="connection-status">No device currently connection</p>
+        </div>
+        <div id="header-rhs">
+            <h2 id="current-note">?</h2>
+        </div>
     </div>
     <section id="piano-keys">
-        <div class="white-key"></div>
-        <div class="white-key"></div>
-        <div class="white-key"></div>
-        <div class="black-key"></div>
-        <div class="white-key"></div>
+        <div class="white-key" id="key-C">C</div>
+        <div class="white-key" id="key-D">D</div>
+        <div class="white-key" id="key-E">E</div>
+        <div class="white-key" id="key-F">F</div>
+        <div class="white-key" id="key-G">G</div>
+        <div class="white-key" id="key-A">A</div>
+        <div class="white-key" id="key-B">B</div>
     </section>
-
-  <section id="midi-data">
-    <ul>
-        <li>Hey man are you okay</li>
-    </ul>
-  </section>
   <div id="midi-boxes">
   </div>
 </body>
