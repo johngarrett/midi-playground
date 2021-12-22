@@ -9,9 +9,6 @@ if (navigator.requestMIDIAccess) {
 }
 
 function midiNumberToNote(number) {
-    function getOctave(number) {
-        console.warn(number / (number % 12))
-    }
     /*
       {
         note: '',
@@ -20,51 +17,104 @@ function midiNumberToNote(number) {
         velocity: #,
       }
      */
-    console.log(number / (number % 12))
+    const octave = Math.floor((number- 24) / 12);
+    console.log(octave)
     switch (number % 12) {
         case 0:
-            return 'C'
+            return {
+                note: 'C',
+                isSharp: false,
+                octave
+            }
         case 1:
-            return 'C#/Db'
+            return {
+                note: 'C#/Db',
+                isSharp: true,
+                octave
+            }
         case 2:
-            return 'D'
+            return {
+                note: 'D',
+                isSharp: false,
+                octave
+            }
         case 3:
-            return 'D#/Eb'
+            return {
+                note: 'D#/Eb',
+                isSharp: true,
+                octave
+            }
         case 4:
-            return 'E'
+            return {
+                note: 'E',
+                isSharp: false,
+                octave
+            }
         case 5: 
-            return 'F'
+            return {
+                note: 'F',
+                isSharp: false,
+                octave
+            }
         case 6:
-            return 'F#/Gb'
+            return {
+                note: 'F#/Gb',
+                isSharp: true,
+                octave
+            }
         case 7:
-            return 'G'
+            return {
+                note: 'G',
+                isSharp: false,
+                octave
+            }
         case 8: 
-            return 'G#/Ab'
+            return {
+                note: 'G#/Ab',
+                isSharp: true,
+                octave
+            }
         case 9:
-            return 'A'
+            return {
+                note: 'A',
+                isSharp: false,
+                octave
+            }
         case 10:
-            return 'A#/Bb'
+            return {
+                note: 'A#/Bb',
+                isSharp: true,
+                octave
+            }
         case 11:
-            return 'B'
+            return {
+                note: 'B',
+                isSharp: false,
+                octave
+            }
     }
 }
 
 function onMIDISuccess(midiAccess) {
         for (var input of midiAccess.inputs.values()) {
-                input.onmidimessage = getMIDIMessage;
+            input.onmidimessage = getMIDIMessage;
+            if (input.state == 'connected') {
+                displayMidiDevice(input)
+            }
         }
 }
 
 var dataList = document.querySelector('#midi-data ul')
 function getMIDIMessage(midiMessage) {
-    console.log(midiMessage.data[1], midiMessage.data[2]);
     let note = midiNumberToNote(midiMessage.data[1])
-    colorKey(note)
+    colorKey(midiMessage.data)
     displayNote(note)
 }
 
-function colorKey(note) {
-    let key = document.getElementById('key-'+note)
+function colorKey(data) {
+    let note = midiNumberToNote(data[1])
+    let depressed = data[2]
+    let key = document.getElementById('key-'+note.note + note.octave)
     if (!key) {
         console.log('no box found')
         let newBox = document.createElement("button");
@@ -72,14 +122,19 @@ function colorKey(note) {
         newBox.setAttribute('id', 'midi-boxes-'+index)
         document.getElementById("midi-boxes").appendChild(newBox)
     }
-    key.classList.add('selected')
-    setInterval(function() {
+    if (depressed) {
+        key.classList.add('selected')
+    } else {
         key.classList.remove('selected')
-    }, 500)
+    }
 }
 
 function displayNote(note) {
-    document.getElementById('current-note').textContent = note;
+    document.getElementById('current-note').textContent = note.note;
+}
+
+function displayMidiDevice(device) {
+    document.getElementById('connection-status').textContent = device.manufacturer + ', ' + device.name
 }
 
 function onMIDIFailure() {
