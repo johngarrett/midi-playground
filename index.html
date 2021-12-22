@@ -1,14 +1,28 @@
-<link rel="stylesheet" href="style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="index.js"></script>
-<div>
-  <h2>Simple MIDI API Example</h2>
-
-  <p>Plug in your MIDI controller and see the data logged here</p>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <!-- <meta http-equiv="refresh" content="10"> - Auto refresh page during development  -->
+    <script src="index.js"></script>
+</head>
+<body>
+    <div id="header">
+        <h1>MIDI Playground</h1>
+        <tt id="connection-status">No device currently connection</tt>
+    </div>
+    <section id="piano-keys">
+        <div class="white-key"></div>
+        <div class="white-key"></div>
+        <div class="white-key"></div>
+        <div class="black-key"></div>
+        <div class="white-key"></div>
+    </section>
 
   <section id="midi-data">
-    <ul></ul>
+    <ul>
+        <li>Hey man are you okay</li>
+    </ul>
   </section>
   <div id="midi-boxes">
   </div>
- </div>
+</body>
+</html>

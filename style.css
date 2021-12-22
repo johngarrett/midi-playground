@@ -1,3 +1,33 @@
+body {
+    margin 20px;
+}
+h1 {
+    font-family: monospace;
+    font-size: 2rem;
+    padding: 0;
+    margin: 0;
+}
+tt {
+    font-size: 1rem;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 10px;
+}
+
+#piano-keys {
+    display: flex;
+}
+
+.white-key {
+    border-style: solid;
+    height: 4em;
+    width: 2em;
+}
+
 #midi-data {
   position:relative; overflow:scroll;
   height: 300px;
@@ -16,4 +46,3 @@
       }
     }
   }
-}
