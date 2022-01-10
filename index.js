@@ -115,6 +115,10 @@ function colorKey(data) {
     let note = midiNumberToNote(data[1])
     let depressed = data[2]
     let key = document.getElementById('key-'+note.note + note.octave)
+    if (note.isSharp) {
+        // hacky, i know, i'm sorry
+        key = document.getElementById('key-'+note.note.split('/')[0] + note.octave)
+    }
     if (!key) {
         console.log('no box found')
         let newBox = document.createElement("button");
