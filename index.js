@@ -191,8 +191,38 @@ function getAscendingMajorScale(note) {
     return scaleNotes
 }
 
-function showScale(root) {
+function getAscendingNaturalMinorScale(root) {
+    let scaleNoteNumbers = []
+    scaleNoteNumbers.push(note.noteValue + 2)
+    scaleNoteNumbers.push(note.noteValue + 3)
+    for (let i = 1; i <= 2; i++) {
+        scaleNoteNumbers.push(note.noteValue + 3 + i*2)
+    }
+    scaleNoteNumbers.push(note.noteValue + 8)
+    for (let i = 1; i <= 2; i++) {
+        scaleNoteNumbers.push(note.noteValue + 8 + i*2)
+    }
+
+    let scaleNotes = []
+    for (let i = 0; i < scaleNoteNumbers.length; i++) {
+        scaleNotes.push(midiNumberToNote(scaleNoteNumbers[i]))
+    }
+
+    return scaleNotes
+}
+
+function showScale(root, mode) {
     let scaleNotes = getAscendingMajorScale(root)
+    switch (mode) {
+        case "natural":
+            scaleNotes = getAscendingNaturalMinorScale(root)
+            break;
+
+        case "ionian":
+        default:
+            // use major scale
+            break;
+    }
     clearKeys()
     for (let note of scaleNotes) {
         console.log(note)
@@ -202,7 +232,7 @@ function showScale(root) {
 
 function pressRandomKey() {
     note = midiNumberToNote(Math.floor(Math.random() * 12) + 48)
-    showScale(note)
+    showScale(note, "natural")
     displayNote(note)
     if (prevKey) {
         colorKey(prevKey, false)
