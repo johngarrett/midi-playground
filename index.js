@@ -230,15 +230,23 @@ function showScale(root, mode) {
     }
 }
 
+let mode = "ionian"
+function setMode(newMode) {
+    mode = newMode
+    showScale(note, mode)
+
+    let modeButtons = document.getElementsByClassName('mode-button');
+    for (let b of modeButtons) {
+        b.classList.remove('selected')
+    }
+    button = document.getElementById(mode + "-button")
+    button.classList.add('selected')
+}
+
 function pressRandomKey() {
     note = midiNumberToNote(Math.floor(Math.random() * 12) + 48)
-    showScale(note, "natural")
+    showScale(note, mode)
     displayNote(note)
-    if (prevKey) {
-        colorKey(prevKey, false)
-    }
-    colorKey(note, true)
-    prevKey = note
 }
 
 setInterval(pressRandomKey, 5000)
