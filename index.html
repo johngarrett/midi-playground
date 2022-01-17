@@ -4,13 +4,19 @@
     <!-- <meta http-equiv="refresh" content="10"> - Auto refresh page during development  -->
     <script src="index.js"></script>
 </head>
-<body>
+<body onload="pressRandomKey()">
     <div id="header">
         <div id="header-lhs">
             <h1>MIDI Playground</h1>
             <p id="connection-status">No device currently connection</p>
         </div>
         <div id="header-rhs">
+            <div class="mode-button" id="ionian-button" onClick="setMode('ionian')">
+                Major
+            </div>
+            <div class="mode-button" id="natural-button" onClick="setMode('natural')">
+                Natural Minor
+            </div>
             <h2 id="current-note">?</h2>
         </div>
     </div>
